@@ -19,6 +19,8 @@ let turn, winner, board;
 
 /*----- cached element references -----*/
 const msgEl = document.getElementById('msg');
+// const cellEls = [...document.querySelectorAll('div')];
+// ^^ I think this needs to be deleted
 
 
 /*----- event listeners -----*/
@@ -29,15 +31,23 @@ document.getElementById('board').addEventListener('click', handleSelect);
 init();
 
 function handleSelect(evt) {
+  // Get index of clicked cell
+  const clickCol = cellEls.indexOf(evt.target);
+  if (winner) return;
+  const colIdx = board[clickCol]
+  const rowIdx = board[colIdx]
   
+  // ^^ this all needs to be changed somethings not right. Need to get the index of the clicked cell
+  
+  render();
 }
 
 function init() {
   // Initialize all state
   board = [
-    [1, 0, 0], // Col 0
+    [0, 0, 0], // Col 0
     [0, 0, 0], // Col 1
-    [0, -1, 0], // Col 2
+    [0, 0, 0], // Col 2
   ];
   turn = 1; 
   winner = null; 
