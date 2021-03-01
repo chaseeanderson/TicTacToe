@@ -8,7 +8,9 @@ const playerRef = {
     name: 'Player 2',
     color: 'red',
   },
-  '0': 'darkgray',
+  '0': {
+    color: 'darkgray',
+  },
 };
 
 
@@ -20,52 +22,74 @@ let turn, winner, board;
 /*----- cached element references -----*/
 const msgEl = document.getElementById('msg');
 const cellEls = [...document.querySelectorAll('div')];
-// ^^ I think this needs to be deleted
-console.log(cellEls)
+const replayBtn = document.querySelector('button'); 
+
 
 /*----- event listeners -----*/
 document.getElementById('board').addEventListener('click', handleSelect);
-
+replayBtn.addEventListener('click', init);
 
 /*----- functions -----*/
 init();
 
+function getWinner () {
+  winner = null;
+  if (Math.abs(board[0] + board[1] + board[2]) === 3) {
+    winner = turn * -1;
+  };
+  if (Math.abs(board[3] + board[4] + board[5]) === 3) {
+    winner = turn * -1;
+  };
+  if (Math.abs(board[6] + board[7] + board[8]) === 3) {
+    winner = turn * -1;
+  };
+  if (Math.abs(board[0] + board[3] + board[6]) === 3) {
+    winner = turn * -1;
+  };
+  if (Math.abs(board[1] + board[4] + board[7]) === 3) {
+    winner = turn * -1;
+  };
+  if (Math.abs(board[2] + board[5] + board[8]) === 3) {
+    winner = turn * -1;
+  };
+  if (Math.abs(board[0] + board[4] + board[8]) === 3) {
+    winner = turn * -1;
+  };
+  if (Math.abs(board[2] + board[4] + board[6]) === 3) {
+    winner = turn * -1;
+  };
+  return winner; 
+};
+
 function handleSelect(evt) {
   // Get index of clicked cell
-  const cellIdx = cellEls.indexOf(evt.target);
+  const spaceIdx = cellEls.indexOf(evt.target);
   if (winner) return;
-  
-  console.log(cellIdx)
-  
-  // ^^ this all needs to be changed somethings not right. Need to get the index of the clicked cell
+  if (board[spaceIdx] !== 0) return; // Blocks space from being selected more than once. 
+  board[spaceIdx] = turn;
+  turn *= -1;
+  winner = getWinner();   
   
   render();
 }
 
 function init() {
   // Initialize all state
-  board = [
-    [1, 0, 0], // Col 0
-    [0, 0, 0], // Col 1
-    [0, 0, 0], // Col 2
-  ];
+  board = [0, 0, 0, 0, 0, 0, 0, 0, 0]; // Each idx is a space on board from top left across rows
   turn = 1; 
   winner = null; 
 
-
+  
   render();
 }
 
 function render() {
   // Render the board
-  board.forEach(function(colArr, colIdx) {
-    // Iterates over each col array to select individual cell
-    colArr.forEach(function(cellVal, rowIdx) {
-      // Selects the div that corrosponds to current cellVal
-      div = document.getElementById(`c${colIdx}r${rowIdx}`);
-      // Styles the div to represent current cellVal
-      div.style.backgroundColor = playerRef[cellVal].color;
-    });
+  // Iterate over each space
+  board.forEach(function (space, spaceIdx) {
+  // Update space to show player selection
+    div = document.getElementById(`space ${spaceIdx}`);
+    div.style.backgroundColor = playerRef[space].color; 
   });
   // Render message
     // Tie Game Message
@@ -77,5 +101,10 @@ function render() {
     // Turn Message
   } else {
     msgEl.textContent = `${playerRef[turn].name}'s turn!`
-  }
-}
+  };
+  // Hide/Show Play Again Button
+  replayBtn.style.visibility = winner ? 'visible' : 'hidden';
+};
+
+//TODO 
+// tie logic
