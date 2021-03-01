@@ -32,6 +32,10 @@ replayBtn.addEventListener('click', init);
 /*----- functions -----*/
 init();
 
+function getTie() {
+  winner = board.includes(0) ? winner : 'T';
+}; 
+
 function getWinner () {
   winner = null;
   if (Math.abs(board[0] + board[1] + board[2]) === 3) {
@@ -69,7 +73,8 @@ function handleSelect(evt) {
   board[spaceIdx] = turn;
   turn *= -1;
   winner = getWinner();   
-  
+  getTie()
+
   render();
 }
 
@@ -105,6 +110,3 @@ function render() {
   // Hide/Show Play Again Button
   replayBtn.style.visibility = winner ? 'visible' : 'hidden';
 };
-
-//TODO 
-// tie logic
