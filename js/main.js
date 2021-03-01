@@ -2,14 +2,14 @@
 const playerRef = {
   '1': {
     name: 'Player 1',
-    color: 'blue',
+    image: 'url(https://i.imgur.com/gtWCMYK.png)'
   },
   '-1': {
     name: 'Player 2',
-    color: 'red',
+    image: 'url(https://i.imgur.com/XKdkLRn.png)',
   },
   '0': {
-    color: 'darkgray',
+    image: '',
   },
 };
 
@@ -94,9 +94,10 @@ function render() {
   board.forEach(function (space, spaceIdx) {
   // Update space to show player selection
     div = document.getElementById(`space ${spaceIdx}`);
-    div.style.backgroundColor = playerRef[space].color; 
+    div.style.backgroundImage = playerRef[space].image; 
+    div.style.backgroundSize = '17vmin 17vmin'; 
   });
-  // Render message
+  // Render message 
     // Tie Game Message
   if (winner === 'T') {
     msgEl.textContent = 'Tie Game!'

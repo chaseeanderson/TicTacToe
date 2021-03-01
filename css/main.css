@@ -1,5 +1,6 @@
 * {
   box-sizing: border-box;
+  font-family: 'Anton', sans-serif;
 }
 
 body {
@@ -9,24 +10,31 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  font-family: 'Open Sans', sans-serif; 
-  background-color: darkgray;
+  background-color: #39A2D2;
 }
 
 header {
-  font-size: 5vmin;
+  font-size: 10vmin;
   letter-spacing: 1vmin;
-  color: lightblue;
+  color: #FAEFFF;
+  text-shadow: 1vmin 1vmin 5vmin black;
+  margin-top: 5vmin;
+}
+
+#msg {
+  color: #FAEFFF;
+  text-shadow: 0.3vmin 0.3vmin 5vmin black;
 }
 
 #board {
   display: grid;
-  grid-template-columns: repeat(3, 10vmin);
-  grid-template-rows: repeat(3, 10vmin);
+  grid-template-columns: repeat(3, 18vmin);
+  grid-template-rows: repeat(3, 18vmin);
 }
 
 #board > div {
-  border: .04vmin solid grey;
+  border: 0.5vmin solid #062903;
+  margin: 0.1vmin;
 }
 
 #board div:hover {
@@ -35,5 +43,12 @@ header {
 }
 
 button {
-  margin-top: 6vmin;
+  margin: 4vmin auto;
+  background-color: #FAEFFF;
+  color: #062903;
+  font-size: 3vmin;
+  border: none;
+  padding: 2.5vmin;
+  box-shadow: 0.3vmin 0.3vmin 5vmin black;
+  border-radius: 1.5vmin;
 }
